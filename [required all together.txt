@@ -1,0 +1,55 @@
+[required all together:
+
+[MAIN RULE:  KEEP THE PAGE IN A OLD STYLE CRT SYSTEM TERMINAL/ BIOS DESIGN]
+
+- shader that makes it look like a old crt like terminal with a fallout terminal/ system bios like design with scanline overlay that is found in the shaders folder
+- 1 or multiple js files to handle this work depending on what's more stable and is being ran from the scripts folder
+- 1 css file that works for all pages in a safe and ordered manner so it isnt clunky or hard to maintain which will run from the styles folder
+- 7 main pages that are required for the main page content which will take place in the pages folder
+- for the logs page each log will have its pages that it links to go in a folder within pages called logs:
+- any images, music, sounds or video's will be pulled from a folder by those names
+
+]
+
+[page content requirements:
+
+- bootup page -> loading page-> Menu page / home page with seemless transitions so it is very much hidden of its transitions
+
+]
+
+[homepage requirements:
+
+- a logo that looks like a eye made from vertical bars with a slight animation, 4 text lines that work like buttons on main page that are the following: Logs, Clearance overide, Recalibration of Network, disconnect all connected to pages of said content 
+
+]
+
+[Log page requirements:
+
+- a simple log like catalog where you click on a tekst button that goes to said log or recording whatever the thing is linked to.
+
+]
+
+[Clearance overide page requirements:
+
+- A symbol ui that has a role selector where you can choose between maintenance staff, research staff, security staff or Classified staff which each will request you with a small pop up to enter their required passwords to become said role with  the main role you will be given at the start being Unwanted visitor
+
+]
+
+[Recalibration of Network page requirements:
+
+- pressing this will load a restart page which will show a short tekst loading called reqtart and have its dots after animated before restating the page at the bootup page
+
+]
+
+[Disconnect page requirement:
+
+- A page that will read Disconnection protocoll engaged before after its done loading closes the site immediatly
+
+]
+
+[ Error Neorolink requirements:
+
+After some time being about 30 minutes to maybe a hour or two the system will " see your intrusion" and pop up a red screen with black big tekst reading Warning unwanted intrussion detected before showing a Timer of 5 seconds counting down and force closing the site
+
+]
+

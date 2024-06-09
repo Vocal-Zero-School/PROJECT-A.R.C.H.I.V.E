@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boot</title>
+  <link rel="icon" type="image/ico" href="../favicon.ico">
+  <link rel="stylesheet" href="../styles/main.css"> <!-- Adjusted path to CSS file -->
+
+  <style>
+body{
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+}
+  /* Custom Fonts */
+  /* Custom Fonts */
+  @font-face {
+  font-family: 'Normal text';
+  src: url('../Fonts/Normal text.ttf');
+}
+  
+  @font-face {
+    font-family: 'Text Bold';
+    src: url('../Fonts/Text Bold.ttf');
+  }
+  
+  @font-face {
+  font-family: 'Boot';
+  src: url('../Fonts/Boot.ttf');
+}
+  
+  @font-face {
+    font-family: 'Copyright';
+    src: url('../Fonts/Copyright.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Menubuttons';
+    src: url('../Fonts/Menubuttons.ttf');
+  }
+  
+  @font-face {
+  font-family: 'Text2';
+  src: url('../Fonts/Text2.ttf');
+}
+
+  
+  @font-face {
+    font-family: 'Video';
+    src: url('../Fonts/Video.ttf');
+  }
+
+    /* Additional styles for the start button */
+    #startButton {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      background-color: #0f0;
+      color: #000;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 9999;
+      font-family: 'Normal text', monospace; /* Use Boot font for the ASCII title */
+    }
+
+    /* Additional styles for the title */
+    .logo-container {
+      opacity: 0;
+      transition: opacity 3s ease; /* Adjust transition duration as needed */
+    }
+    .logo{
+        font-family: 'boot', monospace; /* Use Boot font for the ASCII title */
+        color: #0f0;
+        font-size: 10px;
+        white-space: pre-wrap;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .title-loaded .logo-container {
+      opacity: 1;
+    }
+
+    /* Hide loading log initially */
+    .loading-log {
+      display: none;
+      font-family: 'Text2', monospace; /* Use Text2 font for the loading logs */
+      color: #0f0;
+      opacity: 0;
+      animation: loading 4s steps(4, end) infinite; /* Adjust the duration for longer loading effect */
+    }
+    .booting-complete {
+        font-family: 'Normal text', monospace; /* Use Text2 font for the booting complete message */
+        color: #0f0;
+        font-size: 24px;
+    }
+
+    .loading-log-visible .loading-log {
+      display: block;
+      transition: opacity 2s ease;
+    }
+
+    /* Keyframes for loading animation */
+    @keyframes loading {
+      0% {
+        content: "Loading.";
+      }
+      25% {
+        content: "Loading..";
+      }
+      50% {
+        content: "Loading...";
+      }
+      75% {
+        content: "Loading....";
+      }
+    }
+
+    /* Styles for the progress bar */
+    .progress-container {
+      display: none;
+      width: 100%;
+      background-color: #333;
+      border: 1px solid #0f0;
+      margin-top: 20px;
+      height: 25px;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background-color: #0f0;
+      font-family: 'Normal text', monospace; /* Use Boot font for the ASCII title */
+
+    }
+
+    .progress-visible .progress-container {
+      display: block;
+    }
+    .logo{
+        font-family: 'Normal text', monospace; /* Use Boot font for the ASCII title */
+        color: #0f0;
+        font-size: 20px;
+        white-space: pre-wrap;
+        text-align: center;
+        margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Start button -->
+  <div id="startButton" class="start-button">Start Bootup</div>
+
+  <div class="container">
+    <div id="bootupBox" class="bios-container">
+      <!-- ASCII art for the BIOS logo -->
+      <div class="logo-container">
+        <pre class="logo">
+
+            ████████████    ████████████████████████████████   ████████████████████ 
+            ██    ██   ███  ████   ██ ██ ██   ███    ██   ███   ███    ██   ███      
+            ██    ██████ ████ ██████  ██ █████████████████████████████ ███████████   
+            ██    ██   ██ ██  ██      ██ ██   ██    ███    ██   ███    ██   ███      
+             ███████   ██ ██  ██      ██ ██   █████████    ██   █████████   ████████       
+
+        </pre>
+      </div>
+      
+      <!-- Loading logs -->
+      <div class="loading-log">Loading... 0%</div>
+
+      <!-- Progress bar -->
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <!-- Booting complete message -->
+      <div class="booting-complete" style="display: none; color: #0f0; text-align: center; margin-top: 20px;">Booting Complete</div>
+    </div>
+  </div>
+
+  <!-- PC running sound -->
+  <audio autoplay loop>
+    <source src="../sounds/pc_running.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Bootup sound -->
+  <audio id="bootupSound">
+    <source src="../sounds/bootup.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Intro sound -->
+  <audio id="introSound">
+    <source src="../sounds/Intro.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="../scripts/main.js"></script> <!-- Adjusted path to JS file -->
+
+  <script>
+    document.getElementById('startButton').addEventListener('click', function() {
+      // Hide the start button
+      this.style.display = 'none';
+
+      // Play the bootup sound
+      var bootupSound = document.getElementById('bootupSound');
+      bootupSound.play().then(function() {
+        // Bootup sound played successfully
+        console.log('Bootup sound played successfully');
+      }).catch(function(error) {
+        // Bootup sound playback failed
+        console.error('Bootup sound playback failed:', error);
+      });
+
+      // Fade in the bootup box and the loading logs
+      var bootupBox = document.getElementById('bootupBox');
+      bootupBox.style.opacity = '0'; // Set initial opacity to 0
+      var loadingLog = document.querySelector('.loading-log');
+      var progressBar = document.getElementById('progressBar');
+      var bootingComplete = document.querySelector('.booting-complete');
+      var introSound = document.getElementById('introSound');
+
+      var interval = setInterval(function() {
+        var opacity = parseFloat(bootupBox.style.opacity);
+        if (opacity < 1) {
+          bootupBox.style.opacity = (opacity + 0.01).toString(); // Increase opacity gradually
+        } else {
+          clearInterval(interval);
+          // Show the loading log and progress bar after the bootup box is fully visible
+          setTimeout(function() {
+            loadingLog.style.opacity = '1';
+            loadingLog.parentElement.classList.add('loading-log-visible');
+            document.querySelector('.container').classList.add('progress-visible');
+
+            // Start the progress bar animation
+            var progress = 0;
+            var progressInterval = setInterval(function() {
+              if (progress < 100) {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                loadingLog.textContent = `Loading... ${progress}%`;
+              } else {
+                clearInterval(progressInterval);
+                // Hide loading elements and show "Booting Complete" message
+                loadingLog.style.display = 'none';
+                document.querySelector('.progress-container').style.display = 'none';
+                bootingComplete.style.display = 'block';
+                introSound.play();
+
+                // Fade out title and booting complete message after a delay
+                setTimeout(function() {
+                  bootupBox.style.opacity = '1'; // Set initial opacity to 1
+                  var fadeInterval = setInterval(function() {
+                    var opacity = parseFloat(bootupBox.style.opacity);
+                    if (opacity > 0) {
+                      bootupBox.style.opacity = (opacity - 0.01).toString(); // Decrease opacity gradually
+                    } else {
+                      clearInterval(fadeInterval);
+                      // Redirect to loading.html
+                      window.location.href = 'loading.html';
+                    }
+                  }, 50); // Adjust the interval for smoother animation
+                }, 2000); // Adjust the delay as needed to simulate loading delay
+              }
+            }, 100); // Adjust the interval duration as needed for slower/faster loading
+          }, 2000); // Adjust the delay as needed to simulate loading delay
+        }
+      }, 10); // Adjust the interval for smoother animation
+
+      // Add a class to the container to indicate that the title has loaded
+      document.querySelector('.container').classList.add('title-loaded');
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Global Styles */
+  body {
+    font-family: 'Normal text', Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header Styles */
+  .header {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Add your logo styles here */
+  }
+  
+  /* Navigation Styles */
+  .navbar {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+  }
+  
+  .navbar ul li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    /* Add any additional styles for navigation links */
+  }
+  
+  /* Footer Styles */
+  .footer {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  /* BIOS-like Styles */
+  .bios-container {
+    background-color: #000;
+    padding: 20px;
+    border: 1px solid #0f0;
+  }
+  
+  .bios-text {
+    font-family: 'Normal text', Arial, sans-serif;
+    font-size: 14px;
+    color: #0f0;
+  }
+  
+  .bios-heading {
+    font-family: 'Text Bold', Arial, sans-serif;
+    font-size: 20px;
+    color: #0f0;
+  }
+  
+  
+    /* Custom Fonts */
+    @font-face {
+      font-family: 'Normal text';
+      src: url('../fonts/Normal text.ttf');
+    }
+
+    @font-face {
+      font-family: 'Text Bold';
+      src: url('../fonts/Text Bold.ttf');
+    }
+
+    @font-face {
+      font-family: 'Boot';
+      src: url('../fonts/Boot.ttf');
+    }
+
+    @font-face {
+      font-family: 'Copyright';
+      src: url('../fonts/Copyright.ttf');
+    }
+
+    @font-face {
+      font-family: 'Menubuttons';
+      src: url('../fonts/Menubuttons.ttf');
+    }
+
+    @font-face {
+      font-family: 'Text2';
+      src: url('../fonts/Text2.ttf');
+    }
+
+    @font-face {
+      font-family: 'Video';
+      src: url('../fonts/Video.ttf');
+    }
+
+  
+  /* Add more @font-face rules for other fonts */
+  /* this is for the bootup*/
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Set background color to black */
+    color: #0f0; /* Set text color to green (for old terminal style) */
+    font-family: monospace;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.bios-container {
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-family: 'Bootup', monospace; /* Use the Bootup font for the logo */
+    font-size: 32px;
+}
+
+.loading-log {
+    font-family: 'Text2', monospace; /* Use Text2 font for the loading logs */
+    animation: loading 1.5s infinite; /* Add animation for loading effect */
+}
+
+/* Keyframes for loading animation */
+@keyframes loading {
+    0% {
+        content: "Loading.";
+    }
+    25% {
+        content: "Loading..";
+    }
+    50% {
+        content: "Loading...";
+    }
+    75% {
+        content: "Loading....";
+    }
+}

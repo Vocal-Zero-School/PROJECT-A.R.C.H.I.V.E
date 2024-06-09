@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading</title>
+  <link rel="icon" type="image/ico" href="../favicon.ico">
+  <link rel="stylesheet" href="../styles/main.css"> <!-- Adjusted path to CSS file -->
+
+  <style>
+    /* Custom Fonts */
+    @font-face {
+      font-family: 'Normal text';
+      src: url('../Fonts/Normal text.ttf');
+    }
+
+    @font-face {
+      font-family: 'Text Bold';
+      src: url('../Fonts/Text Bold.ttf');
+    }
+
+    @font-face {
+      font-family: 'Boot';
+      src: url('../Fonts/Boot.ttf');
+    }
+
+    @font-face {
+      font-family: 'Copyright';
+      src: url('../Fonts/Copyright.ttf');
+    }
+
+    @font-face {
+      font-family: 'Menubuttons';
+      src: url('../Fonts/Menubuttons.ttf');
+    }
+
+    @font-face {
+      font-family: 'Text2';
+      src: url('../Fonts/Text2.ttf');
+    }
+
+    @font-face {
+      font-family: 'Video';
+      src: url('../Fonts/Video.ttf');
+    }
+
+    /* Apply font families */
+    .loading-text,
+    .loading-progress,
+    .code-column {
+      font-family: 'Text2', monospace;
+      color: #0f0;
+    }
+
+    /* Additional styles for the loading page */
+    body {
+      background-color: #000;
+      margin: 0; /* Remove default margin */
+        overflow: hidden; /* Hide overflow to prevent scrolling */
+    }
+
+    .loading-container {
+      position: relative;
+      text-align: center;
+      margin-top: 50px;
+      font-family: 'Text2', monospace;
+      color: #0f0;
+    }
+
+    .loading-text {
+      font-size: 36px;
+    }
+
+    .loading-progress {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    .title-container {
+      position: absolute;
+      top: 290px;
+      left: calc(50% - 80px);
+      transform: translateX(-20%);
+      font-family: 'Text Bold', monospace;
+      font-size: 7.5px;
+      color: #0f0;
+    }
+    .code-columns {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .code-column {
+      width: calc(30% - 10px);
+      max-width: 600px;
+      overflow: hidden;
+      white-space: pre-wrap;
+      font-family: 'Normal text', monospace;
+      color: #0f0;
+      background-color: transparent;
+      padding: 10px;
+      border: none;
+      animation: scroll 30s linear infinite;
+    }
+
+    /* Animation for scrolling text */
+    @keyframes scroll {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
+    /* CSS animation for flashing text */
+    @keyframes flash {
+      0% {
+        color: red;
+      }
+      50% {
+        color: white;
+      }
+      100% {
+        color: red;
+      }
+    }
+      /* Add this CSS to hide overflow during screen shake */
+  body.shaking {
+    overflow: hidden;
+  }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- ASCII title -->
+    <div class="title-container">
+      <pre class="ascii-title">
+
+                                                                              ██╗ ██╗██╗██╗ ██╗  
+                                                                             ██╔╝██╔╝██║╚██╗╚██╗ 
+                                                                            ██╔╝ ██║ ██║ ██║ ╚██╗
+                                                                            ╚██╗ ██║ ██║ ██║ ██╔╝
+                                                                             ╚██╗╚██╗██║██╔╝██╔╝ 
+                                                                              ╚═╝ ╚═╝╚═╝╚═╝ ╚═╝                                                 
+                            
+
+         ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░▒▓████████▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░░▒▓████████▓▒░ 
+         ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
+         ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
+         ░▒▓█▓▒░      ░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  ░▒▓█▓▒░  ░▒▓████████▓▒░░▒▓██████▓▒░░▒▓███████▓▒░░▒▓████████▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░░▒▓██████▓▒░   
+         ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░        ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
+         ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░        ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
+          ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓█▓▒░        ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░                                                                                                                                                                                      
+                                                                                                                                                             
+      </pre>
+    </div>
+      
+      <!-- Loading text -->
+      <div class="loading-text">Loading...</div>
+
+      <!-- Loading progress -->
+      <div class="loading-progress">0%</div>
+    </div>
+
+    <!-- Code columns -->
+    <div class="code-columns">
+      <div class="code-column left" id="leftColumn">
+        <!-- Random loading of functions and content -->
+      </div>
+      <div class="code-column right" id="rightColumn">
+        <!-- Random loading of functions and content -->
+      </div>
+    </div>
+  </div>
+  <!-- PC running sound -->
+  <audio autoplay loop>
+    <source src="../sounds/pc_running.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <script>
+     // JavaScript to generate code snippets
+     function generateCodeSnippets() {
+      var codeColumnLeft = document.getElementById('leftColumn');
+      var codeColumnRight = document.getElementById('rightColumn');
+
+      var codeSnippetsLeft = '';
+      var codeSnippetsRight = '';
+
+      // Generate random code snippets for left column
+      for (var i = 0; i < 100; i++) { // Adjust the number of snippets as needed
+        codeSnippetsLeft += '<p>' + generateRandomCodeSnippet() + '</p>';
+      }
+
+      // Generate random code snippets for right column
+      for (var j = 0; j < 100; j++) { // Adjust the number of snippets as needed
+        codeSnippetsRight += '<p>' + generateRandomCodeSnippet() + '</p>';
+      }
+
+      codeColumnLeft.innerHTML = codeSnippetsLeft;
+      codeColumnRight.innerHTML = codeSnippetsRight;
+    }
+
+    // Function to generate random code snippets
+    function generateRandomCodeSnippet() {
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\|;:\'",<.>/?`~';
+      var snippetLength = Math.floor(Math.random() * 300) + 100; // Random length between 100 and 400 characters
+      var snippet = '';
+      for (var i = 0; i < snippetLength; i++) {
+        snippet += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return snippet;
+    }
+
+    // Start scrolling animation for code columns
+    generateCodeSnippets(); // Generate code snippets
+  </script>
+
+<script>
+ var shakeInterval; // Define shakeInterval globally
+  var bootFailureAudio; // Define boot failure audio globally
+
+// Function to start shaking the screen
+function startShakeScreen() {
+  document.body.classList.add('shaking'); // Add class to hide overflow
+  shakeInterval = setInterval(function() {
+    // Add logic to shake the screen
+  }, 100); // Adjust the interval as needed
+}
+
+// Function to stop shaking the screen
+function stopShakeScreen() {
+  clearInterval(shakeInterval); // Clear the interval
+  document.body.classList.remove('shaking'); // Remove class to show overflow
+  // Add logic to stop shaking the screen
+}
+
+  // JavaScript to update loading progress
+  var progress = 0;
+  var progressInterval = setInterval(function() {
+    if (progress <= 100) {
+      document.querySelector('.loading-progress').textContent = progress + '%';
+      progress++;
+    } else {
+      clearInterval(progressInterval);
+      // Once progress reaches 100%, show loading complete message and fade out loading text and percentage
+      var loadingText = document.querySelector('.loading-text');
+      var loadingPercentage = document.querySelector('.loading-progress');
+      loadingText.style.opacity = 0;
+      loadingPercentage.style.opacity = 0;
+      setTimeout(function() {
+        // Display welcome message after fade out
+        loadingText.textContent = 'Welcome Unwanted User';
+        loadingText.style.opacity = 1;
+        // Simulate crash with corrupted text and effects
+        setTimeout(function() {
+            corruptText(loadingText);
+        }, 3000); // Adjust delay before corruption starts
+      }, 2000); // Adjust delay for fade out
+    }
+  }, 300); // Adjust the interval for smoother animation
+
+  // Function to simulate text corruption
+  function corruptText(element) {
+    var originalText = element.textContent;
+    var corruptInterval = setInterval(function() {
+      var corruptedText = '';
+      for (var i = 0; i < originalText.length; i++) {
+        corruptedText += String.fromCharCode(originalText.charCodeAt(i) + Math.random() * 100);
+      }
+      element.textContent = corruptedText;
+      // Flashing effect
+      element.style.color = (element.style.color === 'red') ? 'white' : 'red';
+      // Flashing effect for code columns
+      var codeColumns = document.querySelectorAll('.code-column');
+      codeColumns.forEach(function(column) {
+        column.style.color = (column.style.color === 'red') ? 'white' : 'red';
+      });
+      var codeColumns = document.querySelectorAll('.title-container');
+      codeColumns.forEach(function(column) {
+        column.style.color = (column.style.color === 'red') ? 'white' : 'red';
+      });
+    }, 100); // Adjust the interval for the speed of corruption
+
+    bootFailureAudio = new Audio('../sounds/boot_failure.mp3');
+    // Start boot failure sound when corruption starts
+    bootFailureAudio.play();
+
+    // Start screen shake
+    startShakeScreen();
+
+    // Stop corruption after a certain duration
+    setTimeout(function () {
+      clearInterval(corruptInterval);
+      // Stop flashing effect
+      element.style.color = 'white';
+      // Display final corrupted message
+      element.textContent = 'W E L C O M E to the archives...'; // Adjust the final message
+      // Stop screen shake
+      stopShakeScreen();
+      // Stop boot failure sound
+      bootFailureAudio.pause();
+      bootFailureAudio.currentTime = 0; // Reset audio to beginning
+      // Fade out entire screen after displaying welcome message
+      setTimeout(function () {
+        fadeOutScreen();
+      }, 2000); // Adjust delay before fade out
+    }, 5000); // Adjust the duration before stopping corruption
+  }
+
+
+  // Function to simulate screen shake
+  function shakeScreen() {
+    var intensity = 10; // Adjust the intensity of the shake
+    var initialPosition = window.scrollY;
+    var shakeInterval = setInterval(function() {
+      window.scrollTo(0, initialPosition + intensity * Math.random() - intensity / 2);
+    }, 50); // Adjust the interval for the speed of the shake
+    return shakeInterval;
+  }
+
+  // Function to stop screen shake
+  function stopShakeScreen() {
+    clearInterval(shakeInterval);
+  }
+
+  // Function to fade out the entire screen
+  function fadeOutScreen() {
+    var opacity = 1;
+    var fadeOutInterval = setInterval(function() {
+      opacity -= 0.01;
+      document.body.style.opacity = opacity;
+      if (opacity <= 0) {
+        clearInterval(fadeOutInterval);
+        // Redirect to homepage once screen is faded out
+        window.location.href = 'Homepage.html'; // Adjust the URL accordingly
+      }
+    }, 10); // Adjust the interval for the speed of fade out
+  }
+</script>
+</body>
+</html>
