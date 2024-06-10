@@ -270,10 +270,10 @@ function stopShakeScreen() {
       codeColumns.forEach(function(column) {
         column.style.color = (column.style.color === 'red') ? 'white' : 'red';
       });
-      var codeColumns = document.querySelectorAll('.title-container');
-      codeColumns.forEach(function(column) {
-        column.style.color = (column.style.color === 'red') ? 'white' : 'red';
-      });
+      var logo = document.querySelector('.title-container img');
+      var currentLogo = logo.getAttribute('src');
+      var newLogo = currentLogo.includes('logo-red') ? currentLogo.replace('logo-red', 'logo-white') : currentLogo.replace('logo-white', 'logo-red');
+      logo.setAttribute('src', newLogo);
     }, 100); // Adjust the interval for the speed of corruption
 
     bootFailureAudio = new Audio('../sounds/boot_failure.mp3');
@@ -297,10 +297,14 @@ function stopShakeScreen() {
       bootFailureAudio.currentTime = 0; // Reset audio to beginning
       // Fade out entire screen after displaying welcome message
       setTimeout(function () {
-        fadeOutScreen();
+      fadeOutScreen();
       }, 2000); // Adjust delay before fade out
     }, 5000); // Adjust the duration before stopping corruption
-  }
+
+    // Change logo to logo-white
+    var logo = document.querySelector('.title-container img');
+    logo.setAttribute('src', '../images/logo-white.png');
+    }
 
 
   // Function to simulate screen shake
