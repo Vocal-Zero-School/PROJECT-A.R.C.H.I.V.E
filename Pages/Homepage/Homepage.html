@@ -1,11 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Homepage</title>
+		<link rel="icon" type="image/ico" href="../../favicon.ico" />
+		<link rel="stylesheet" href="../../styles/main.css" />
+		<!-- Adjust path as needed -->
+		<style>
+			/* Custom Fonts */
+			@font-face {
+				font-family: "Normal text";
+				src: url("../../Fonts/Normal text.ttf");
+			}
+
+			@font-face {
+				font-family: "Text Bold";
+				src: url("../../Fonts/Text Bold.ttf");
+			}
+
+			@font-face {
+				font-family: "Boot";
+				src: url("../../Fonts/Boot.ttf");
+			}
+
+			@font-face {
+				font-family: "Copyright";
+				src: url("../../Fonts/Copyright.ttf");
+			}
+
+			@font-face {
+				font-family: "Menubuttons";
+				src: url("../../Fonts/Menubuttons.ttf");
+			}
+
+			@font-face {
+				font-family: "Text2";
+				src: url("../../Fonts/Text2.ttf");
+			}
+
+			@font-face {
+				font-family: "Video";
+				src: url("../../Fonts/Video.ttf");
+			}
+
+			body {
+				background-color: #000;
+				color: #0f0;
+				font-family: "Text2", monospace;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+			}
+
+			.logo {
+				margin-bottom: 50px;
+				text-align: center;
+			}
+
+			.logo img {
+				max-width: 100%;
+				height: auto;
+			}
+
+			.menu {
+				background-color: #111;
+				padding: 20px;
+				border: 2px solid #0f0;
+				border-radius: 10px;
+				box-shadow: 0 0 10px #0f0;
+				text-align: center;
+				width: 300px; /* Adjust size as needed */
+			}
+
+			.menu a {
+				display: block;
+				color: #0f0;
+				text-decoration: none;
+				font-family: "Menubuttons", monospace;
+				font-size: 18px;
+				margin: 10px 0;
+				padding: 10px;
+				border: 1px solid #0f0;
+				border-radius: 5px;
+				transition: background-color 0.3s, color 0.3s;
+			}
+
+			.menu a:hover {
+				background-color: #0f0;
+				color: #000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Logo Section -->
+		<div class="logo">
+			<img src="../../Images/Logo.png" alt="Logo" />
+			<!-- Adjust path as needed -->
+		</div>
+
+		<!-- Menu Section -->
+		<div class="menu">
+			<a href="../../logs/logs.html">Logs</a>
+			<a href="../../pages/clearance_override.html">Clearance Override</a>
+			<a href="../../pages/bootup.html">Recalibration of Network</a>
+			<a href="../../pages/disconnection.html">Disconnection</a>
+		</div>
+	</body>
 </html>
