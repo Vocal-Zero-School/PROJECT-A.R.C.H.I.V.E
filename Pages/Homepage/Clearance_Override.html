@@ -3,15 +3,50 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Clearance Override</title>
+		<title>Bios Terminal Menu</title>
 		<link rel="icon" type="image/ico" href="../../favicon.ico" />
 		<link rel="stylesheet" href="../../styles/main.css" />
 		<!-- Adjust path as needed -->
 		<style>
-			/* Reused styles from the homepage */
+			/* Custom Fonts */
+			@font-face {
+				font-family: "Normal text";
+				src: url("../../Fonts/Normal text.ttf");
+			}
+
+			@font-face {
+				font-family: "Text Bold";
+				src: url("../../Fonts/Text Bold.ttf");
+			}
+
+			@font-face {
+				font-family: "Boot";
+				src: url("../../Fonts/Boot.ttf");
+			}
+
+			@font-face {
+				font-family: "Copyright";
+				src: url("../../Fonts/Copyright.ttf");
+			}
+
+			@font-face {
+				font-family: "Menubuttons";
+				src: url("../../Fonts/Menubuttons.ttf");
+			}
+
+			@font-face {
+				font-family: "Text2";
+				src: url("../../Fonts/Text2.ttf");
+			}
+
+			@font-face {
+				font-family: "Video";
+				src: url("../../Fonts/Video.ttf");
+			}
+
 			body {
 				background-color: #000;
-				color: #0f0;
+				color: #fff; /* Set initial text color to white */
 				font-family: "Text2", monospace;
 				margin: 0;
 				overflow: hidden; /* Prevent scrollbars */
@@ -21,6 +56,16 @@
 				justify-content: center;
 				height: 100vh;
 				position: relative;
+			}
+
+			.logo {
+				margin-bottom: 50px;
+				text-align: center;
+			}
+
+			.logo img {
+				max-width: 100%;
+				height: auto;
 			}
 
 			.menu {
@@ -33,200 +78,232 @@
 				z-index: 2; /* Ensure it stays above the floating code */
 			}
 
-			.menu .menu-item {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin-bottom: 10px;
+			.menu a {
+				display: block;
+				color: #0f0;
+				text-decoration: none;
+				font-family: "Menubuttons", monospace;
+				font-size: 18px;
+				margin: 10px 0;
+				padding: 10px;
+				border: 1px solid #0f0;
+				border-radius: 0; /* Remove border radius */
+				transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add border-color transition */
 			}
 
-			.menu .menu-item span {
-				cursor: pointer;
+			.menu a:focus {
+				background-color: #0f0;
+				color: #000;
+				border-color: #000; /* Change border color on focus */
+			}
+			.menu a:hover {
+				background-color: #0f0;
+				color: #000;
+				border-color: #000; /* Change border color on hover */
 			}
 
-			.menu .menu-item .arrow {
-				font-size: 20px;
+			.floating-code {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				pointer-events: none;
+				z-index: -1;
 			}
 
-			.password-popup {
+			.floating-code span {
 				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background-color: #111;
-				padding: 20px;
-				border: 2px solid #0f0;
-				box-shadow: 0 0 10px #0f0;
-				z-index: 3;
+				color: rgba(0, 255, 0, 0.2);
+				font-family: "Courier New", Courier, monospace;
+				font-size: 12px;
+				animation: float 20s linear infinite;
 			}
 
-			.password-popup input[type="password"] {
-				margin-bottom: 10px;
-				padding: 5px;
+			@keyframes float {
+				from {
+					transform: translateY(-100vh) translateX(-50%);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(100vh) translateX(-50%);
+					opacity: 1;
+				}
+			}
+			/* Glitch Effect */
+			.glitch {
+				position: relative;
+				overflow: hidden;
+				display: inline-block;
 			}
 
-			.confirmation-popup {
+			.glitch::before,
+			.glitch::after {
+				content: attr(data-text);
 				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				opacity: 0.8;
+				mix-blend-mode: difference;
+				pointer-events: none;
+			}
+
+			.glitch::before {
+				z-index: -1;
+				animation: glitch 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+			}
+
+			.glitch::after {
+				z-index: 1;
+				animation: glitch 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+			}
+
+			@keyframes glitch {
+				0% {
+					transform: translate(0);
+				}
+				25% {
+					transform: translate(-5px, 5px);
+				}
+				50% {
+					transform: translate(-5px, -5px);
+				}
+				75% {
+					transform: translate(5px, 5px);
+				}
+				100% {
+					transform: translate(5px, -5px);
+				}
+			}
+
+			/* Override Access Styles */
+			.override-title {
+				margin-bottom: 20px;
+				color: #0f0; /* Set initial title color to green */
+				font-family: "Menubuttons", monospace;
+				font-size: 24px;
+				border-bottom: 1px solid #0f0; /* Set initial border color to green */
+				padding-bottom: 10px;
+				transition: color 0.3s, border-color 0.3s; /* Add transition for color and border-color */
+			}
+
+			.override-container {
+				margin-top: 20px;
+				text-align: center;
+			}
+
+			.override-button {
+				font-family: "Menubuttons", monospace;
+				font-size: 18px;
+				margin: 10px 0;
+				padding: 10px 20px;
 				background-color: #111;
-				padding: 20px;
-				border: 2px solid #0f0;
-				box-shadow: 0 0 10px #0f0;
-				z-index: 3;
-			}
-
-			.confirmation-popup button {
-				margin: 0 5px;
-				padding: 5px 10px;
+				color: #0f0;
+				border: 1px solid #0f0;
+				border-radius: 5px;
 				cursor: pointer;
+				transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add border-color transition */
 			}
 
-			.error-flash {
-				animation: flash-red 0.5s;
+			.override-button:hover {
+				background-color: #0f0;
+				color: #000;
+				border-color: #000; /* Change border color on hover */
 			}
 
-			@keyframes flash-red {
-				0%,
-				50%,
-				100% {
-					background-color: #f00;
-				}
-				25%,
-				75% {
-					background-color: #111;
-				}
+			.popup {
+				display: none;
+				position: fixed;
+				z-index: 999;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				background-color: rgba(0, 0, 0, 0.5);
 			}
 
-			.success-flash {
-				animation: flash-green 0.5s;
-			}
-
-			@keyframes flash-green {
-				0%,
-				50%,
-				100% {
-					background-color: #0f0;
-				}
-				25%,
-				75% {
-					background-color: #111;
-				}
+			.popup-content {
+				background-color: #111;
+				margin: 20% auto;
+				padding: 20px;
+				border: 1px solid #0f0;
+				width: 80%;
 			}
 		</style>
 	</head>
 	<body>
-		<!-- Content for the clearance_override page -->
-		<h1>Clearance Override</h1>
 		<div class="menu">
-			<div class="menu-item" id="visitor">
-				<span>Visitor</span>
-				<span class="arrow">➡️</span>
-			</div>
-			<div class="menu-item" id="researchStaff">
-				<span>Research Staff</span>
-				<span class="arrow">➡️</span>
-			</div>
-			<div class="menu-item" id="maintenanceStaff">
-				<span>Maintenance Staff</span>
-				<span class="arrow">➡️</span>
-			</div>
-			<div class="menu-item" id="securityStaff">
-				<span>Security Staff</span>
-				<span class="arrow">➡️</span>
-			</div>
-			<div class="menu-item" id="classified">
-				<span>Classified</span>
-				<span class="arrow">➡️</span>
+			<div class="override-title glitch" data-text="Clearance Override">Clearance Override</div>
+			<div class="override-container">
+				<button class="override-button" onclick="openOverridePopup()">Access</button>
 			</div>
 		</div>
-		<div class="password-popup" id="passwordPopup" style="display: none">
-			<input type="password" id="passwordInput" placeholder="Enter Password" />
-			<button onclick="checkPassword()">Submit</button>
-		</div>
-		<div class="confirmation-popup" id="confirmationPopup" style="display: none">
-			<p>Are you sure you want to access this role?</p>
-			<button onclick="handleConfirmation(true)">Yes</button>
-			<button onclick="handleConfirmation(false)">No</button>
+
+		<!-- Popup Dialog Box -->
+		<div id="popup" class="popup">
+			<div class="popup-content">
+				<span class="close" onclick="closePopup()">&times;</span>
+				<p>Enter password:</p>
+				<input type="password" id="passwordInput" class="password-input" />
+				<button class="submit-button" onclick="checkPassword()">Submit</button>
+			</div>
 		</div>
 
 		<script>
-			// Function to handle menu item selection
-			function handleSelection(role) {
-				if (role === "visitor") {
-					// Handle visitor role selection
-					// Include glitch effect for 'Visitor' text
-					simulateGlitch("visitor");
-				} else {
-					// Check password and proceed accordingly
-					showPasswordPopup(role);
-				}
+			// Function to open the popup
+			function openOverridePopup() {
+				document.getElementById("popup").style.display = "block";
 			}
 
-			// Function to simulate glitch effect
-			function simulateGlitch(role) {
-				const roleElement = document.getElementById(role);
-				roleElement.classList.add("glitch");
-				setTimeout(() => {
-					roleElement.classList.remove("glitch");
-				}, 1000);
+			// Function to close the popup
+			function closePopup() {
+				document.getElementById("popup").style.display = "none";
+				document.getElementById("passwordInput").value = ""; // Clear password input
 			}
 
-			// Function to show password popup
-			function showPasswordPopup(role) {
-				const passwordPopup = document.getElementById("passwordPopup");
-				passwordPopup.style.display = "block";
-				const passwordInput = document.getElementById("passwordInput");
-				passwordInput.focus();
-				// Store role in a data attribute
-				passwordInput.setAttribute("data-role", role);
-			}
-
-			// Function to check password
+			// Function to check the entered password
 			function checkPassword() {
-				const passwordInput = document.getElementById("passwordInput");
-				const role = passwordInput.getAttribute("data-role");
-				const password = passwordInput.value;
-				if (password === "correct_password") {
-					showConfirmationUI(role);
+				const password = document.getElementById("passwordInput").value;
+				// Replace this with your password validation logic
+				const correctPassword = "your_password_here"; // Change this
+
+				if (password === correctPassword) {
+					// Password correct
+					document.getElementById("popup").style.display = "none";
+					document.querySelectorAll(".override-title, .override-button").forEach((el) => {
+						el.style.color = "#0f0"; // Change text color to green
+						el.style.borderColor = "#0f0"; // Change border color to green
+					});
+					setTimeout(() => {
+						document.querySelectorAll(".override-title, .override-button").forEach((el) => {
+							el.style.color = "#fff"; // Reset text color to white
+							el.style.borderColor = "#0f0"; // Reset border color to green
+						});
+						// Ask for confirmation
+						if (confirm("Are you sure of your selection?")) {
+							// User confirmed, proceed with access
+							// Add your logic here
+						} else {
+							// User denied access
+							// Add your logic here
+						}
+					}, 500); // Change the delay as needed
 				} else {
-					showErrorUI();
+					// Password incorrect
+					document.querySelectorAll(".override-title, .override-button").forEach((el) => {
+						el.style.color = "#f00"; // Change text color to red
+						el.style.borderColor = "#f00"; // Change border color to red
+					});
+					setTimeout(() => {
+						document.querySelectorAll(".override-title, .override-button").forEach((el) => {
+							el.style.color = "#fff"; // Reset text color to white
+							el.style.borderColor = "#0f0"; // Reset border color to green
+						});
+					}, 500); // Change the delay as needed
 				}
-			}
-
-			// Function to show confirmation UI
-			function showConfirmationUI(role) {
-				const confirmationPopup = document.getElementById("confirmationPopup");
-				confirmationPopup.style.display = "block";
-				// Store role in a data attribute
-				confirmationPopup.setAttribute("data-role", role);
-			}
-
-			// Function to handle confirmation
-			function handleConfirmation(confirm) {
-				const confirmationPopup = document.getElementById("confirmationPopup");
-				const role = confirmationPopup.getAttribute("data-role");
-				if (confirm) {
-					// Proceed with accessing the role
-					// Redirect to the appropriate page or perform other actions
-					console.log("Accessing role:", role);
-				} else {
-					// Close confirmation UI
-					confirmationPopup.style.display = "none";
-				}
-			}
-
-			// Function to show error UI
-			function showErrorUI() {
-				const passwordPopup = document.getElementById("passwordPopup");
-				passwordPopup.classList.add("error-flash");
-				setTimeout(() => {
-					passwordPopup.classList.remove("error-flash");
-					passwordPopup.style.display = "none";
-					const passwordInput = document.getElementById("passwordInput");
-					passwordInput.value = ""; // Clear password input
-				}, 1000); // Flash duration
 			}
 		</script>
 	</body>
