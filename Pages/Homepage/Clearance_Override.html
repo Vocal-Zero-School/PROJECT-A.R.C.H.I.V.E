@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Clearance Override</title>
+		<link rel="icon" type="image/ico" href="../../favicon.ico" />
+		<link rel="stylesheet" href="../../styles/main.css" />
+		<!-- Adjust path as needed -->
+		<style>
+			/* Reused styles from the homepage */
+			body {
+				background-color: #000;
+				color: #0f0;
+				font-family: "Text2", monospace;
+				margin: 0;
+				overflow: hidden; /* Prevent scrollbars */
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				position: relative;
+			}
+
+			.menu {
+				background-color: #111;
+				padding: 20px;
+				border: 2px solid #0f0;
+				box-shadow: 0 0 10px #0f0;
+				text-align: center;
+				width: 300px; /* Adjust size as needed */
+				z-index: 2; /* Ensure it stays above the floating code */
+			}
+
+			.menu .menu-item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+			}
+
+			.menu .menu-item span {
+				cursor: pointer;
+			}
+
+			.menu .menu-item .arrow {
+				font-size: 20px;
+			}
+
+			.password-popup {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: #111;
+				padding: 20px;
+				border: 2px solid #0f0;
+				box-shadow: 0 0 10px #0f0;
+				z-index: 3;
+			}
+
+			.password-popup input[type="password"] {
+				margin-bottom: 10px;
+				padding: 5px;
+			}
+
+			.confirmation-popup {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: #111;
+				padding: 20px;
+				border: 2px solid #0f0;
+				box-shadow: 0 0 10px #0f0;
+				z-index: 3;
+			}
+
+			.confirmation-popup button {
+				margin: 0 5px;
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+
+			.error-flash {
+				animation: flash-red 0.5s;
+			}
+
+			@keyframes flash-red {
+				0%,
+				50%,
+				100% {
+					background-color: #f00;
+				}
+				25%,
+				75% {
+					background-color: #111;
+				}
+			}
+
+			.success-flash {
+				animation: flash-green 0.5s;
+			}
+
+			@keyframes flash-green {
+				0%,
+				50%,
+				100% {
+					background-color: #0f0;
+				}
+				25%,
+				75% {
+					background-color: #111;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Content for the clearance_override page -->
+		<h1>Clearance Override</h1>
+		<div class="menu">
+			<div class="menu-item" id="visitor">
+				<span>Visitor</span>
+				<span class="arrow">➡️</span>
+			</div>
+			<div class="menu-item" id="researchStaff">
+				<span>Research Staff</span>
+				<span class="arrow">➡️</span>
+			</div>
+			<div class="menu-item" id="maintenanceStaff">
+				<span>Maintenance Staff</span>
+				<span class="arrow">➡️</span>
+			</div>
+			<div class="menu-item" id="securityStaff">
+				<span>Security Staff</span>
+				<span class="arrow">➡️</span>
+			</div>
+			<div class="menu-item" id="classified">
+				<span>Classified</span>
+				<span class="arrow">➡️</span>
+			</div>
+		</div>
+		<div class="password-popup" id="passwordPopup" style="display: none">
+			<input type="password" id="passwordInput" placeholder="Enter Password" />
+			<button onclick="checkPassword()">Submit</button>
+		</div>
+		<div class="confirmation-popup" id="confirmationPopup" style="display: none">
+			<p>Are you sure you want to access this role?</p>
+			<button onclick="handleConfirmation(true)">Yes</button>
+			<button onclick="handleConfirmation(false)">No</button>
+		</div>
+
+		<script>
+			// Function to handle menu item selection
+			function handleSelection(role) {
+				if (role === "visitor") {
+					// Handle visitor role selection
+					// Include glitch effect for 'Visitor' text
+					simulateGlitch("visitor");
+				} else {
+					// Check password and proceed accordingly
+					showPasswordPopup(role);
+				}
+			}
+
+			// Function to simulate glitch effect
+			function simulateGlitch(role) {
+				const roleElement = document.getElementById(role);
+				roleElement.classList.add("glitch");
+				setTimeout(() => {
+					roleElement.classList.remove("glitch");
+				}, 1000);
+			}
+
+			// Function to show password popup
+			function showPasswordPopup(role) {
+				const passwordPopup = document.getElementById("passwordPopup");
+				passwordPopup.style.display = "block";
+				const passwordInput = document.getElementById("passwordInput");
+				passwordInput.focus();
+				// Store role in a data attribute
+				passwordInput.setAttribute("data-role", role);
+			}
+
+			// Function to check password
+			function checkPassword() {
+				const passwordInput = document.getElementById("passwordInput");
+				const role = passwordInput.getAttribute("data-role");
+				const password = passwordInput.value;
+				if (password === "correct_password") {
+					showConfirmationUI(role);
+				} else {
+					showErrorUI();
+				}
+			}
+
+			// Function to show confirmation UI
+			function showConfirmationUI(role) {
+				const confirmationPopup = document.getElementById("confirmationPopup");
+				confirmationPopup.style.display = "block";
+				// Store role in a data attribute
+				confirmationPopup.setAttribute("data-role", role);
+			}
+
+			// Function to handle confirmation
+			function handleConfirmation(confirm) {
+				const confirmationPopup = document.getElementById("confirmationPopup");
+				const role = confirmationPopup.getAttribute("data-role");
+				if (confirm) {
+					// Proceed with accessing the role
+					// Redirect to the appropriate page or perform other actions
+					console.log("Accessing role:", role);
+				} else {
+					// Close confirmation UI
+					confirmationPopup.style.display = "none";
+				}
+			}
+
+			// Function to show error UI
+			function showErrorUI() {
+				const passwordPopup = document.getElementById("passwordPopup");
+				passwordPopup.classList.add("error-flash");
+				setTimeout(() => {
+					passwordPopup.classList.remove("error-flash");
+					passwordPopup.style.display = "none";
+					const passwordInput = document.getElementById("passwordInput");
+					passwordInput.value = ""; // Clear password input
+				}, 1000); // Flash duration
+			}
+		</script>
+	</body>
+</html>

@@ -91,6 +91,10 @@
 				transition: background-color 0.3s, color 0.3s;
 			}
 
+			.menu a:focus {
+				background-color: #0f0;
+				color: #000;
+			}
 			.menu a:hover {
 				background-color: #0f0;
 				color: #000;
@@ -178,6 +182,12 @@
 		<!-- Floating Code Background -->
 		<div class="floating-code" id="floatingCode"></div>
 
+		<!-- PC running sound -->
+		<audio autoplay loop>
+			<source src="../../Sounds/pc_running.mp3" type="audio/mpeg" />
+			Your browser does not support the audio element.
+		</audio>
+
 		<!-- Logo Section -->
 		<div class="logo glitch">
 			<img src="../../Images/Logo.png" alt="Logo" />
@@ -186,26 +196,84 @@
 
 		<!-- Menu Section -->
 		<div class="menu">
-			<a href="Logs/Logs.html">Logs</a>
-			<a href="clearance_override.html">Clearance Override</a>
-			<a href="../Bootup.html">Recalibration of Network</a>
-			<a href="../Disconnect.html">Disconnection</a>
+			<a href="Logs/Logs.html" id="logsButton" onmouseenter="handleMouseEnter('logsButton')" onkeydown="handleKeyDown(event, 'logsButton')">Logs</a>
+			<a href="clearance_override.html" id="overrideButton" onmouseenter="handleMouseEnter('overrideButton')" onkeydown="handleKeyDown(event, 'overrideButton')">Clearance Override</a>
+			<a href="../Bootup.html" id="bootupButton" onmouseenter="handleMouseEnter('bootupButton')" onkeydown="handleKeyDown(event, 'bootupButton')">Recalibration of Network</a>
+			<a href="../Disconnect.html" id="disconnectButton" onmouseenter="handleMouseEnter('disconnectButton')" onkeydown="handleKeyDown(event, 'disconnectButton')">Disconnection</a>
 		</div>
 
 		<script>
-			// JavaScript to generate floating code elements
-			const floatingCode = document.getElementById("floatingCode");
-			const codeSymbols = "01";
-			const codeLength = 300; // Adjust as needed
+			// Function to generate floating code elements from the selected menu item
+			function generateFloatingCode() {
+				const floatingCode = document.getElementById("floatingCode");
+				floatingCode.innerHTML = ""; // Clear existing floating code
 
-			for (let i = 0; i < codeLength; i++) {
-				const span = document.createElement("span");
-				span.textContent = codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
-				span.style.left = `${Math.random() * 100}vw`;
-				span.style.animationDelay = `${Math.random() * 20}s`;
-				span.style.animationDuration = `${Math.random() * 20 + 20}s`;
-				floatingCode.appendChild(span);
+				const codeSymbols = "01";
+				const codeLength = 300; // Adjust as needed
+
+				for (let i = 0; i < codeLength; i++) {
+					const span = document.createElement("span");
+					span.textContent = codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
+					span.style.left = `${Math.random() * 100}vw`;
+					span.style.animationDelay = `${Math.random() * 20}s`;
+					span.style.animationDuration = `${Math.random() * 20 + 20}s`;
+					floatingCode.appendChild(span);
+				}
 			}
+
+			// Function to handle mouse enter event for menu items
+			function handleMouseEnter(buttonId) {
+				const button = document.getElementById(buttonId);
+				button.focus(); // Set focus when mouse enters
+				playSound("interface-select");
+			}
+
+			// Function to handle keyboard navigation
+			function handleKeyDown(event, buttonId) {
+				const keyCode = event.keyCode;
+				const button = document.getElementById(buttonId);
+
+				if (keyCode === 13 || keyCode === 32) {
+					// Enter or Space key
+					playSound("interface-enter");
+					setTimeout(() => {
+						fadeOutAndRedirect(button.href);
+					}, 1000); // Delay for sound to finish playing
+					generateFloatingCode(); // Generate floating code after redirection
+				} else if (keyCode === 38 || keyCode === 87 || keyCode === 90) {
+					// Up arrow key or 'W' key
+					const prevButton = button.previousElementSibling || button.parentElement.lastElementChild;
+					prevButton.focus();
+					playSound("interface-select");
+				} else if (keyCode === 40 || keyCode === 83) {
+					// Down arrow key or 'S' key
+					const nextButton = button.nextElementSibling || button.parentElement.firstElementChild;
+					nextButton.focus();
+					playSound("interface-select");
+				}
+			}
+
+			// Function to play sound
+			function playSound(soundName) {
+				const sound = new Audio(`../../Sounds/${soundName}.mp3`);
+				sound.play();
+			}
+
+			// Function to fade out and redirect
+			function fadeOutAndRedirect(url) {
+				document.body.style.transition = "opacity 1s";
+				document.body.style.opacity = 0;
+				setTimeout(() => {
+					window.location.href = url;
+				}, 1000); // Wait for 1 second before redirecting
+			}
+
+			// Focus on the first menu button when the page loads
+			window.addEventListener("load", () => {
+				const firstButton = document.querySelector(".menu a");
+				firstButton.focus();
+				generateFloatingCode(); // Generate floating code on page load
+			});
 		</script>
 	</body>
 </html>
