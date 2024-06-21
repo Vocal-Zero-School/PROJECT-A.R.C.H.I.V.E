@@ -20,7 +20,7 @@
 			}
 
 			.disconnecting {
-				font-size: 36px;
+				font-size: 100px;
 				margin-bottom: 20px;
 				animation: blink 1.5s infinite;
 			}
@@ -348,13 +348,14 @@
 		</style>
 	</head>
 	<body>
-		<div class="Disconnecting Terminal">Disconnecting</div>
+		<div class="disconnecting">Disconnecting Terminal</div>
 		<div class="dots"></div>
 		<script>
 			setTimeout(() => {
 				document.querySelector(".disconnecting").textContent = "Goodbye";
 				setTimeout(() => {
-					window.close();
+					var win = window.open("about:blank", "_self");
+					win.close();
 				}, 3000); // Wait for 3 seconds after displaying 'Goodbye'
 			}, 10000); // Wait for 10 seconds before changing to 'Goodbye'
 		</script>
