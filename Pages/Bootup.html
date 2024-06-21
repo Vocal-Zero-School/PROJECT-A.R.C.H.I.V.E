@@ -6,6 +6,8 @@
 		<title>Boot</title>
 		<link rel="icon" type="image/ico" href="../favicon.ico" />
 		<link rel="stylesheet" href="../styles/main.css" />
+		<script src="../Scripts/Main.js"></script>
+
 		<!-- Adjusted path to CSS file -->
 
 		<style>
@@ -172,12 +174,6 @@
 			</div>
 		</div>
 
-		<!-- PC running sound -->
-		<audio autoplay loop>
-			<source src="../sounds/pc_running.mp3" type="audio/mpeg" />
-			Your browser does not support the audio element.
-		</audio>
-
 		<!-- Bootup sound -->
 		<audio id="bootupSound">
 			<source src="../sounds/bootup.mp3" type="audio/mpeg" />
@@ -189,9 +185,6 @@
 			<source src="../sounds/Intro.mp3" type="audio/mpeg" />
 			Your browser does not support the audio element.
 		</audio>
-
-		<script src="../scripts/main.js"></script>
-		<!-- Adjusted path to JS file -->
 
 		<script>
 			document.getElementById("startButton").addEventListener("click", function () {
